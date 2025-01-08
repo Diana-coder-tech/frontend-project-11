@@ -7,4 +7,4 @@
 
 # RSS Reader
 
-[Посетить сайт](https://frontend-project-11-git-main-dianas-projects-a1927f52.vercel.app/)
+[Посетить сайт](https://frontend-project-11-jet-psi.vercel.app/)
