@@ -28,9 +28,7 @@ jobs:
         run: npx vercel --prod --token=$VERCEL_TOKEN
       - name: Publish code coverage
         uses: paambaati/codeclimate-action@v9.0.0
+        run: npx codeclimate-test-reporter < coverage/lcov.info
         env:
-          CC_TEST_REPORTER_ID: ${{github.workspace}}/app/build/reports/jacoco/test/jacocoTestReport.xml:jacoco
-          JACOCO_SOURCE_PATH: app/src/main/java
-        with:
-          coverageCommand: make report
-          coverageLocations: ${{github.workspace}}/build/reports/jacoco/test/jacocoTestReport.xml:jacoco
+          CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
+    
