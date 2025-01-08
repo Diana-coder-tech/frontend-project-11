@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>RSS Reader</title>
+  <!-- Bootstrap будет подключён через Webpack -->
 </head>
 <body>
   <div class="container mt-5">
@@ -11,7 +12,14 @@
     <form id="rss-form">
       <div class="mb-3">
         <label for="rss-input" class="form-label">RSS URL</label>
-        <input type="text" class="form-control" id="rss-input" placeholder="Enter RSS feed URL">
+        <input 
+          type="text" 
+          class="form-control" 
+          id="rss-input" 
+          name="url" 
+          placeholder="Enter RSS feed URL" 
+          required>
+        <div class="feedback form-text"></div>
       </div>
       <button type="submit" class="btn btn-primary">Add RSS</button>
     </form>

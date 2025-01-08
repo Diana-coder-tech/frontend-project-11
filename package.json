@@ -25,6 +25,8 @@
   "dependencies": {
     "bootstrap": "^5.3.3",
     "gradle": "^1.0.8",
-    "uuid": "^11.0.4"
+    "on-change": "^5.0.1",
+    "uuid": "^11.0.4",
+    "yup": "^1.6.1"
   }
 }
