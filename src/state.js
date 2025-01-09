@@ -8,6 +8,10 @@ const initState = () => ({
   },
 });
 
-const watchState = (state, onUpdate) => onChange(state, onUpdate);
+const watchState = (state, onUpdate) =>
+    onChange(state, (path, value) => {
+      console.log(`Изменение в состоянии: ${path} = ${value}`); // Логируем изменения
+      onUpdate(path, value);
+    });
 
 export { initState, watchState };

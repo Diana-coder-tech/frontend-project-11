@@ -1,33 +1,48 @@
-const renderForm = (elements, state) => { 
+const renderForm = (elements, state) => {
     const { input, feedback } = elements;
+  
+    console.log('Рендерим форму:', state.form.state);
   
     switch (state.form.state) {
       case 'filling':
         input.classList.remove('is-invalid');
-        feedback.textContent = ''; // Убираем текст ошибки
+        feedback.textContent = '';
+        feedback.classList.remove('text-danger');
         break;
   
       case 'error':
-        input.classList.add('is-invalid'); // Добавляем красную рамку
-        feedback.textContent = state.form.error; // Выводим ошибку
-        feedback.classList.add('text-danger'); // Делаем текст красным
+        console.log('Состояние изменилось на error:', state.form.error);
+        input.classList.add('is-invalid');
+        feedback.textContent = state.form.error;
+        feedback.classList.remove('text-success');
+        feedback.classList.add('text-danger');
         break;
   
       case 'success':
-        input.value = ''; // Очищаем инпут
-        input.focus(); // Устанавливаем фокус
+        console.log('Состояние success. Поле ввода очищается.');
+        input.value = '';
+        input.focus();
+        feedback.textContent = 'RSS добавлен успешно!';
+        feedback.classList.remove('text-danger');
+        feedback.classList.add('text-success');
         break;
+
+      case 'success':
+        console.log('Состояние изменилось на success:', state.form);
+        break;
+          
   
       default:
         break;
     }
   };
-  
+
   export const setupView = (state, elements) => {
     renderForm(elements, state);
   
-    return (path, value) => {
+    return (path) => {
       if (path.startsWith('form')) {
+        console.log('Вызов renderForm для пути:', path);
         renderForm(elements, state);
       }
     };

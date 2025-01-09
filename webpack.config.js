@@ -7,6 +7,7 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'main.js',
+    clean: true,
   },
   module: {
     rules: [
@@ -27,5 +28,9 @@ module.exports = {
       },
       compress: true,
       port: 9000,
+      hot: true,
+  },
+  performance: {
+    hints: false, // Отключаем предупреждения о размерах бандлов
   },
 };
