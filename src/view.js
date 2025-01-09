@@ -22,6 +22,7 @@ const renderForm = (elements, state) => {
         console.log('Состояние success. Поле ввода очищается.');
         input.value = '';
         input.focus();
+        feedback.textContent = i18next.t('success');
         feedback.textContent = 'RSS добавлен успешно!';
         feedback.classList.remove('text-danger');
         feedback.classList.add('text-success');
