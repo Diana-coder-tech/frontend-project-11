@@ -5,6 +5,8 @@ import validateUrl from './validation.js';
 import { initState, watchState } from './state.js';
 import { setupView } from './view.js';
 console.log('setupView:', setupView);
+import fetchRss from './api.js';
+import parseRss from './parser.js';
 
 const runApp = () => {
   const elements = {
@@ -14,6 +16,8 @@ const runApp = () => {
     heading: document.querySelector('h1'),
     subheading: document.querySelector('label[for="rss-input"]'),
     button: document.querySelector('button'),
+    feedsContainer: document.querySelector('.feeds'),
+    postsContainer: document.querySelector('.posts'),
   };
 
   const state = initState();
@@ -34,17 +38,28 @@ const runApp = () => {
     console.log('Проверяем URL:', url);
     console.log('Список фидов:', state.feeds);
   
-    validateUrl(url, state.feeds)
-      .then(() => {
-        console.log('URL успешно добавлен');
-        state.feeds.push(url);
-        state.form.state = 'success';
-        state.form.error = null;
-      })
+    validateUrl(url, state.feeds.map((feed) => feed.url))
+    .then(() => {
+      state.loading.state = 'loading';
+      state.loading.error = null;
+      return fetchRss(url);
+    })
+    .then((data) => {
+      const { feed, posts } = parseRss(data);
+
+      // Генерация ID для каждого фида и поста
+      const feedId = Date.now();
+      const postsWithId = posts.map((post) => ({ ...post, feedId, id: Date.now() + Math.random() }));
+
+      // Обновление состояния
+      state.feeds.push({ id: feedId, url, ...feed });
+      state.posts = [...state.posts, ...postsWithId];
+      state.loading.state = 'success';
+    })
       .catch((err) => {
         console.error('Ошибка валидации:', err.message);
-        state.form.state = 'error';
-        state.form.error = err.message;
+        state.loading.state = 'error';
+        state.loading.error = err.message;
       });
   });  
 };

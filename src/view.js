@@ -1,50 +1,41 @@
-const renderForm = (elements, state) => {
-    const { input, feedback } = elements;
-  
-    console.log('Рендерим форму:', state.form.state);
-  
-    switch (state.form.state) {
-      case 'filling':
-        input.classList.remove('is-invalid');
-        feedback.textContent = '';
-        feedback.classList.remove('text-danger');
-        break;
-  
-      case 'error':
-        console.log('Состояние изменилось на error:', state.form.error);
-        input.classList.add('is-invalid');
-        feedback.textContent = state.form.error;
-        feedback.classList.remove('text-success');
-        feedback.classList.add('text-danger');
-        break;
-  
-      case 'success':
-        console.log('Состояние success. Поле ввода очищается.');
-        input.value = '';
-        input.focus();
-        feedback.textContent = i18next.t('success');
-        feedback.textContent = 'RSS добавлен успешно!';
-        feedback.classList.remove('text-danger');
-        feedback.classList.add('text-success');
-        break;
-
-      case 'success':
-        console.log('Состояние изменилось на success:', state.form);
-        break;
-          
-  
-      default:
-        break;
-    }
+const renderFeeds = (elements, feeds) => {
+    const { feedsContainer } = elements;
+    feedsContainer.innerHTML = '';
+    feeds.forEach((feed) => {
+      const feedEl = document.createElement('div');
+      feedEl.classList.add('feed');
+      feedEl.innerHTML = `
+        <h3>${feed.title}</h3>
+        <p>${feed.description}</p>
+      `;
+      feedsContainer.append(feedEl);
+    });
   };
-
+  
+  const renderPosts = (elements, posts) => {
+    const { postsContainer } = elements;
+    postsContainer.innerHTML = '';
+    posts.forEach((post) => {
+      const postEl = document.createElement('li');
+      postEl.innerHTML = `<a href="${post.link}" target="_blank">${post.title}</a>`;
+      postsContainer.append(postEl);
+    });
+  };
+  
   export const setupView = (state, elements) => {
-    renderForm(elements, state);
+    renderFeeds(elements, state.feeds);
+    renderPosts(elements, state.posts);
   
     return (path) => {
-      if (path.startsWith('form')) {
-        console.log('Вызов renderForm для пути:', path);
-        renderForm(elements, state);
+      if (path === 'feeds') {
+        renderFeeds(elements, state.feeds);
+      }
+      if (path === 'posts') {
+        renderPosts(elements, state.posts);
+      }
+      if (path.startsWith('loading')) {
+        const { feedback } = elements;
+        feedback.textContent = state.loading.error || '';
       }
     };
   };
