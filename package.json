@@ -3,10 +3,15 @@
   "version": "1.0.0",
   "description": "[![Actions Status](https://github.com/Diana-coder-tech/frontend-project-11/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/Diana-coder-tech/frontend-project-11/actions)",
   "main": "index.js",
+  "type": "module",
   "scripts": {
-    "build": "webpack",
-    "test": "jest --coverage",
-    "report-coverage": "codeclimate-test-reporter < coverage/lcov.info"
+    "start": "webpack serve",
+    "build": "webpack --mode=production --node-env=production",
+    "build:dev": "webpack --mode=development",
+    "build:prod": "webpack --mode=production --node-env=production",
+    "watch": "webpack --watch",
+    "serve": "webpack serve",
+    "lint": "npx eslint ."
   },
   "keywords": [],
   "author": "Diana Zhiliakova",
@@ -17,6 +22,7 @@
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-plugin-import": "^2.31.0",
     "html-webpack-plugin": "^5.6.3",
+    "playwright": "^1.49.1",
     "style-loader": "^4.0.0",
     "webpack": "^5.97.1",
     "webpack-cli": "^6.0.1",
@@ -28,6 +34,7 @@
     "gradle": "^1.0.8",
     "i18next": "^24.2.1",
     "on-change": "^5.0.1",
+    "postcss-loader": "^8.1.1",
     "uuid": "^11.0.4",
     "yup": "^1.6.1"
   }

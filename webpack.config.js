@@ -1,36 +1,40 @@
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const path = require('path');
+import path from 'path';
+import HtmlWebpackPlugin from 'html-webpack-plugin';
 
-module.exports = {
-  mode: 'development',
+export default {
+  mode: process.env.NODE_ENV || 'development',
   entry: './src/index.js',
   output: {
-    path: path.resolve(__dirname, 'dist'),
-    filename: 'main.js',
     clean: true,
+    path: path.resolve(process.cwd(), 'public'), // Используем process.cwd() вместо __dirname
+  },
+  devServer: {
+    open: true,
+    host: 'localhost',
   },
   module: {
     rules: [
       {
-        test: /\.css$/i,
-        use: ['style-loader', 'css-loader'],
+        test: /\.css$/,
+        use: ['style-loader', 'css-loader', 'postcss-loader'],
+      },
+      {
+        test: /\.scss$/,
+        use: ['style-loader', 'css-loader', 'sass-loader', 'postcss-loader'],
+      },
+      {
+        test: /\.woff2?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+        use: 'url-loader?limit=10000',
+      },
+      {
+        test: /\.(ttf|eot|svg)(\?[\s\S]+)?$/,
+        use: 'file-loader',
       },
     ],
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: './index.html',
+      template: 'index.html',
     }),
   ],
-  devServer: {
-    static: {
-        directory: path.join(__dirname, 'public'),
-      },
-      compress: true,
-      port: 9000,
-      hot: true,
-  },
-  performance: {
-    hints: false, // Отключаем предупреждения о размерах бандлов
-  },
 };
