@@ -1,6 +1,5 @@
 import 'bootstrap';
 import { setLocale, string } from 'yup';
-import { uniqueId } from 'lodash';
 import onChange from 'on-change';
 import i18n from 'i18next';
 import axios from 'axios';
