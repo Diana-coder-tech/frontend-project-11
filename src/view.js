@@ -24,7 +24,7 @@ const renderPosts = (state, element, translate) => {
   });
   element.append(listGroup);
 };
-  
+
 const renderFeeds = (state, element) => {
   const listGroup = document.createElement('ul');
   listGroup.classList.add('list-group', 'border-0', 'rounded-0');
@@ -42,14 +42,14 @@ const renderFeeds = (state, element) => {
   });
   element.append(listGroup);
 };
-  
+
 const makeContainer = (title, state, items, translate) => {
   const elements = { ...items };
   const containerMapping = {
     posts: (element) => renderPosts(state, element, translate),
     feeds: (element) => renderFeeds(state, element),
   };
-  
+
   elements[title].innerHTML = '';
   const card = document.createElement('div');
   card.classList.add('card', 'border-0');
@@ -63,7 +63,7 @@ const makeContainer = (title, state, items, translate) => {
   elements[title].append(card);
   containerMapping[title](card);
 };
-  
+
 const errorHandler = (items, error, translate) => {
   const elements = { ...items };
   elements.feedback.classList.remove('text-success');
@@ -73,7 +73,7 @@ const errorHandler = (items, error, translate) => {
   elements.btn.disabled = false;
   elements.input.disabled = false;
 };
-  
+
 const finishHandler = (items, state, translate) => {
   const elements = { ...items };
   elements.feedback.textContent = '';
@@ -87,7 +87,7 @@ const finishHandler = (items, state, translate) => {
   elements.feedback.classList.add('text-success');
   elements.feedback.textContent = translate('success');
 };
-  
+
 const openModalWindow = (items, state, postId) => {
   const elements = { ...items };
   const post = state.content.posts
@@ -97,7 +97,7 @@ const openModalWindow = (items, state, postId) => {
   elements.modal.body.textContent = description;
   elements.modal.btn.href = link;
 };
-  
+
 const render = (state, items, translate) => (path, value) => {
   const elements = { ...items };
   const renderMapping = {
@@ -113,7 +113,6 @@ const render = (state, items, translate) => (path, value) => {
     error: () => errorHandler(elements, state.process.error, translate),
     finished: () => finishHandler(elements, state, translate),
   };
-  
   switch (path) {
     case 'process.state':
       renderMapping[state.process.state]();
@@ -125,10 +124,9 @@ const render = (state, items, translate) => (path, value) => {
     case 'uiState.modalPostId':
       openModalWindow(elements, state, value);
       break;
-  
     default:
       break;
   }
 };
-  
+
 export default render;
