@@ -1,4 +1,5 @@
 .vercel
 .env*.local
-/home/diana_zh/frontend-project-11/node_modules
-/home/diana_zh/frontend-project-11/dist
+/public/
+/dist/
+/node_modules/
