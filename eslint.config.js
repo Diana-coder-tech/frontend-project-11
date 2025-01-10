@@ -14,7 +14,7 @@ export default [
       'no-multiple-empty-lines': ['error', { max: 1, maxEOF: 1 }],
       'no-param-reassign': ['error', { props: true }],
       'eol-last': ['error', 'always'],
-      'indent': ['error', 2, { SwitchCase: 1 }],
+      indent: ['error', 2, { SwitchCase: 1 }],
     },
   },
   pluginJs.configs.recommended,
