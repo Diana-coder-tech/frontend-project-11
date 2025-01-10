@@ -3,7 +3,7 @@ import { setLocale, string } from 'yup';
 import onChange from 'on-change';
 import i18n from 'i18next';
 import axios from 'axios';
-
+import { uniqueId } from 'lodash';
 import ru from './locales/ru.js';
 import render from './view.js';
 import parse from './parser.js';

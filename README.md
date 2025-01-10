@@ -9,12 +9,12 @@
 
 [Посетить сайт](https://frontend-project-11-jet-psi.vercel.app/)
 
-node v22.9.0
-npm 10.9.0
+`node v22.9.0`
+`npm 10.9.0`
 
-# Установка и запуск
+### Установка и запуск
 
-git clone
-npm ci
-npm run build
+`git clone`
+`npm ci`
+`npm run build`
 
